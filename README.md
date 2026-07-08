@@ -2,7 +2,7 @@
 
 Hi, I'm Tito, an Informatics Engineering student transitioning into Business/Data Analysis. This repository showcases my data analysis work: SQL querying, data cleaning, and translating raw transactional data into actionable business insights.
 
-Each project folder represents an independent case study, built around real-world business questions rather than generic tutorial exercises. All projects follow the same workflow: **data cleaning → SQL analysis → insight generation → business recommendation.**
+Each project folder represents an independent case study, built around real-world business questions rather than generic tutorial exercises.
 
 ---
 
