@@ -57,7 +57,7 @@ with 49 total rows, ready for cleaning and analysis.
 
 ---
 
-# Step 2: DATA CLEANING
+## Step 2: DATA CLEANING
 
 Initial inspection revealed several data quality issues that needed to be 
 addressed before analysis:
