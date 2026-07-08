@@ -76,8 +76,8 @@ addressed before analysis:
 
 3. **Mixed granularity**  
    Dataset contained two levels of detail in one 
-   table: order-level fields (populated for ~26,000 rows) and item/SKU-level 
-   fields (populated for only ~1,470 rows). This analysis retains only 
+   table: order-level fields (populated for ±26,000 rows) and item/SKU-level 
+   fields (populated for only ±1,470 rows). This analysis retains only 
    order-level fields to ensure consistent, complete data across the full 
    dataset.
 
