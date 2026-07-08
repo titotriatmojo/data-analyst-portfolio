@@ -3,7 +3,7 @@
 - **Dataset:** Indonesia E-Commerce Sales & Shipping 2023–2025
 - **Source:** [Kaggle](https://www.kaggle.com/datasets/bakitacos/indonesia-e-commerce-sales-and-shipping-20232025)
 - **Format:** 24 monthly Excel files, consolidated into a single dataset
-- **Size:** 49 Columns, 26258 Rows (after merging)
+- **Size:** 49 Columns, 26,258 Rows (after merging)
 - **Period:** December 2023 – November 2025
 - **Fields:** order ID, order date, product category, quantity, shipping fee, discount, payment method, destination province, order status, cancellation reason
 
