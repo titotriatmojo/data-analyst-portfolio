@@ -62,11 +62,11 @@ with 49 total rows, ready for cleaning and analysis.
 Initial inspection revealed several data quality issues that needed to be 
 addressed before analysis:
 
-1. **Fully empty columns**
+1. **Fully empty columns**  
    `SKU Induk`, `Nomor Referensi SKU`, and `Catatan` 
    contained no data across all 26,258 rows and were removed.
 
-3. **Personally Identifiable Information (PII)**
+3. **Personally Identifiable Information (PII)**  
    Raw export (a standard Shopee Seller Center format) included customer-identifying fields such as 
    recipient name, phone number, and shipping address. These were dropped 
    entirely, both for privacy/ethical reasons and because they carry no 
@@ -74,14 +74,14 @@ addressed before analysis:
    operates on cancellation rate, category performance, and regional trends 
    are all derived from grouped transaction attributes, not individual identity.
 
-4. **Mixed granularity**
+4. **Mixed granularity**  
    Dataset contained two levels of detail in one 
    table: order-level fields (populated for ~26,000 rows) and item/SKU-level 
    fields (populated for only ~1,470 rows). This analysis retains only 
    order-level fields to ensure consistent, complete data across the full 
    dataset.
 
-5. **Data type correction**
+5. **Data type correction**  
    Several numeric fields (e.g., total payment, 
    total weight) were stored as text due to currency formatting ("Rp", 
    thousand separators). These were converted to proper numeric types to 
