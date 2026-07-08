@@ -9,16 +9,16 @@
 
 ## 🛠️ Tools Used
 
-- **Python (pandas)** — combining monthly files, data preparation
-- **MySQL Workbench** — querying and analysis (JOIN, GROUP BY, window functions, CASE WHEN, CTEs)
-- **Excel** — data validation and pivot cross-checks
+- **Python (pandas)** for combining monthly files, data preparation
+- **MySQL Workbench** for querying and analysis (JOIN, GROUP BY, window functions, CASE WHEN, CTEs)
+- **Excel** for data validation and pivot cross-checks
 
 ## Data Consolidation
 
 The raw dataset was provided as 24 separate monthly Excel files (one per month, 
 Dec 2023–Nov 2025), stored in Google Drive. Since all files share an identical 
 column structure, they were programmatically combined into a single dataset 
-using Python (pandas) rather than manually merging them in Excel — a more 
+using Python (pandas) rather than manually merging them in Excel, a more 
 scalable and reproducible approach for datasets with many files.
 
 **Process:**
