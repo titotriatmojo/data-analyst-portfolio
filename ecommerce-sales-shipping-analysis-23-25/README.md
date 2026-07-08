@@ -109,7 +109,6 @@ pii_cols = ['Username (Pembeli)', 'Nama Penerima', 'No. Telepon',
             'Alamat Pengiriman', 'Catatan dari Pembeli']
 combined_df = combined_df.drop(columns=pii_cols)
 
-
 # 3. Separate order-level data from incomplete SKU-level data
 # Columns 0-22 are populated for nearly all 26,258 orders (order-level summary)
 # Columns 23+ are only populated for ~1,470 rows (item/SKU-level detail)
@@ -139,5 +138,4 @@ print(f"Orders with a cancellation reason filled: {df_orders['Alasan Pembatalan'
 combined_df.to_csv("/content/drive/MyDrive/Dataset/id_e_commerce_sales_shipping_23-25/clean_public_data/clean_data.csv", index=False)
 
 print("File successfully saved")
-
 ```
