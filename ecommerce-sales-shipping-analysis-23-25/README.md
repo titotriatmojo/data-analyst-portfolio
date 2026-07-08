@@ -66,7 +66,7 @@ addressed before analysis:
    `SKU Induk`, `Nomor Referensi SKU`, and `Catatan` 
    contained no data across all 26,258 rows and were removed.
 
-3. **Personally Identifiable Information (PII)**  
+2. **Personally Identifiable Information (PII)**  
    Raw export (a standard Shopee Seller Center format) included customer-identifying fields such as 
    recipient name, phone number, and shipping address. These were dropped 
    entirely, both for privacy/ethical reasons and because they carry no 
@@ -74,20 +74,20 @@ addressed before analysis:
    operates on cancellation rate, category performance, and regional trends 
    are all derived from grouped transaction attributes, not individual identity.
 
-4. **Mixed granularity**  
+3. **Mixed granularity**  
    Dataset contained two levels of detail in one 
    table: order-level fields (populated for ~26,000 rows) and item/SKU-level 
    fields (populated for only ~1,470 rows). This analysis retains only 
    order-level fields to ensure consistent, complete data across the full 
    dataset.
 
-5. **Data type correction**  
+4. **Data type correction**  
    Several numeric fields (e.g., total payment, 
    total weight) were stored as text due to currency formatting ("Rp", 
    thousand separators). These were converted to proper numeric types to 
    enable aggregation and calculation.
 
-6. **Consistency check**  
+5. **Consistency check**  
    Cross-validated that the count of orders with a 
    "cancelled" status aligned with the count of rows containing a filled 
    cancellation reason, to confirm the cancellation-related fields could be 
@@ -95,3 +95,49 @@ addressed before analysis:
 
 **Result:** dataset reduced from 49 to 41 relevant columns, retaining 
 all 26,258 order-level rows with corrected data types, ready for SQL analysis.
+
+**Code:**
+```
+# 1. Drop columns with 100% missing values
+fully_empty_cols = ['SKU Induk', 'Nomor Referensi SKU', 'Catatan']
+combined_df = combined_df.drop(columns=fully_empty_cols)
+
+# 2. Drop PII (Personally Identifiable Information) columns
+# These are excluded for privacy reasons and have no analytical value
+# at the aggregate business-insight level this project focuses on
+pii_cols = ['Username (Pembeli)', 'Nama Penerima', 'No. Telepon', 
+            'Alamat Pengiriman', 'Catatan dari Pembeli']
+combined_df = combined_df.drop(columns=pii_cols)
+
+
+# 3. Separate order-level data from incomplete SKU-level data
+# Columns 0-22 are populated for nearly all 26,258 orders (order-level summary)
+# Columns 23+ are only populated for ~1,470 rows (item/SKU-level detail)
+# This analysis focuses on order-level data for consistency and completeness
+order_level_cols = combined_df.columns[:22].tolist()  # sesuaikan index setelah drop di atas
+df_orders = combined_df[order_level_cols].copy()
+
+# 4. Fix data types — columns stored as text but should be numeric
+money_cols = ['Total Berat', 'Total Pembayaran'] 
+for col in money_cols:
+    df_orders[col] = (
+        df_orders[col]
+        .astype(str)
+        .str.replace('Rp', '', regex=False)
+        .str.replace('.', '', regex=False)
+        .str.replace(',', '.', regex=False)
+        .str.strip()
+    )
+    df_orders[col] = pd.to_numeric(df_orders[col], errors='coerce')
+
+# 5. Cross-check: does cancellation reason count match cancelled order count?
+cancelled_orders = df_orders[df_orders['Status Pesanan'].str.contains('Batal', case=False, na=False)]
+print(f"Orders with 'cancelled' status: {len(cancelled_orders)}")
+print(f"Orders with a cancellation reason filled: {df_orders['Alasan Pembatalan'].notna().sum()}")
+
+# Save the clean csv
+combined_df.to_csv("/content/drive/MyDrive/Dataset/id_e_commerce_sales_shipping_23-25/clean_public_data/clean_data.csv", index=False)
+
+print("File successfully saved")
+
+```
