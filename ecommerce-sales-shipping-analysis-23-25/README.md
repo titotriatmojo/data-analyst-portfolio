@@ -139,3 +139,35 @@ combined_df.to_csv("/content/drive/MyDrive/Dataset/id_e_commerce_sales_shipping_
 
 print("File successfully saved")
 ```
+
+## Step 3 — Exploratory Data Analysis (SQL)
+
+- **Input:** `cleaned_order_level_data.csv` imported into MySQL as the `sales_shipping` table (database: `e_commerce_23_25`)
+- **Tool:** MySQL Workbench
+- **Note:** Original column names (Bahasa Indonesia, from the raw Shopee export) were retained as-is rather than renamed, to preserve the dataset's original structure
+- **Output:** [`case1_cancellation_queries_v2.sql`](./case1_cancellation_queries_v2.sql) — full query file, with results exported as `.csv` per question
+
+#### Import Process  
+All columns were initially imported as `VARCHAR`/`TEXT` (staging approach) to 
+avoid import failures caused by inconsistent formatting in the raw export 
+(currency symbols, thousand separators, mixed date formats). After a 
+successful import, relevant numeric columns (`Total Diskon`, `Total Pembayaran`, 
+`Ongkos Kirim Dibayar oleh Pembeli`, etc.) were cleaned of non-numeric 
+characters and converted to `DECIMAL` using `UPDATE` + `CAST`, and 
+`Waktu Pesanan Dibuat` was converted to `DATETIME` after verifying its format. 
+See [`column_type_reference.md`](./column_type_reference.md) for the full 
+type mapping.
+
+#### Loading Data into MySQL  
+The cleaned dataset was loaded into MySQL using `LOAD DATA INFILE`, chosen 
+over the GUI Import Wizard for faster performance with a dataset of this 
+size (26,258 rows) and more explicit control over field/line terminators.
+
+```sql
+LOAD DATA LOCAL INFILE 'clean_data_final.csv'
+INTO TABLE e_commerce_23_25.sales_shipping
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+```
