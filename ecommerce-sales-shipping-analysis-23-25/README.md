@@ -111,9 +111,9 @@ combined_df = combined_df.drop(columns=pii_cols)
 
 # 3. Separate order-level data from incomplete SKU-level data
 # Columns 0-22 are populated for nearly all 26,258 orders (order-level summary)
-# Columns 23+ are only populated for ~1,470 rows (item/SKU-level detail)
+# Columns 23+ are only populated for about 1,470 rows (item/SKU-level detail)
 # This analysis focuses on order-level data for consistency and completeness
-order_level_cols = combined_df.columns[:22].tolist()  # sesuaikan index setelah drop di atas
+order_level_cols = combined_df.columns[:22].tolist()  
 df_orders = combined_df[order_level_cols].copy()
 
 # 4. Fix data types — columns stored as text but should be numeric
