@@ -12,7 +12,7 @@ Each project folder represents an independent case study, built around real-worl
 |---|---|---|---|
 | [E-Commerce Sales & Shipping Analysis (2023-2025)](./ecommerce-sales-shipping-analysis-23-25) | Analyzed 24 months of Indonesian e-commerce transaction data to uncover order cancellation drivers, category performance, and regional sales patterns. | Python (pandas), MySQL, Excel | Data cleaning, SQL (JOIN, GROUP BY, window functions), business insight generation |
 
-*(more case studies coming soon — additional analyses covering product/category segmentation and regional performance are planned for this dataset)*
+*(more case studies coming soon)*
 
 ---
 
