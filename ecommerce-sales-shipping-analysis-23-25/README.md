@@ -290,7 +290,7 @@ ORDER BY total_revenue DESC;
 | KEPULAUAN RIAU | 102 | 25.49 |
 | KALIMANTAN TIMUR | 169 | 25.44 |
 
-**Insight:** Java-based provinces — which account for the large majority of both order volume and revenue, consistently show cancellation rates **below the platform average (11–12.4% vs. 13.43%)**. Outer-island provinces, while much lower in volume, show cancellation rates **2–2.5x higher** (25–32%). **So What:** this geographic pattern likely connects to the shipping-related cancellation reasons found in Q6 ("Pengiriman gagal", "Penjual gagal mengirimkan pesanan tepat waktu"), longer shipping distances to eastern Indonesia plausibly increase delivery failure and timeout-driven cancellations. **Recommendation:** review shipping SLA and courier options specifically for outer-island destinations rather than treating cancellation as a uniform national problem.
+**Insight:** Java-based provinces, which account for the large majority of both order volume and revenue, consistently show cancellation rates **below the platform average (11–12.4% vs. 13.43%)**. Outer-island provinces, while much lower in volume, show cancellation rates **2–2.5x higher** (25–32%). **So What:** this geographic pattern likely connects to the shipping-related cancellation reasons found in Q6 ("Pengiriman gagal", "Penjual gagal mengirimkan pesanan tepat waktu"), longer shipping distances to eastern Indonesia plausibly increase delivery failure and timeout-driven cancellations. **Recommendation:** review shipping SLA and courier options specifically for outer-island destinations rather than treating cancellation as a uniform national problem.
 
 ---
 
