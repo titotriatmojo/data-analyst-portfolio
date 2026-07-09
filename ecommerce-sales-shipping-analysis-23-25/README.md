@@ -165,8 +165,8 @@ IGNORE 1 LINES;
 
 Two distinct types of NULL appear in the query results below, with different implications:
 
-- **`Alasan Pembatalan` (cancellation reason) NULL — expected by design.** 22,733 of 26,258 orders (86.6%) have no cancellation reason simply because they were never cancelled. This is not a data quality issue.
-- **`order_month` NULL — a genuine data gap.** 2,434 orders (9.3% of total) are missing a value in `Waktu Pesanan Dibuat`, so they cannot be assigned to a month. Their cancellation rate (12.86%) is close to the platform-wide average (13.43%), suggesting this gap does not meaningfully bias the trend analysis. These rows were excluded from the month-by-month trend chart but are included in all other (non-time-based) queries.
+- **`Alasan Pembatalan` (cancellation reason) NULL which expected by design.** 22,733 of 26,258 orders (86.6%) have no cancellation reason simply because they were never cancelled. This is not a data quality issue.
+- **`order_month` NULL which a genuine data gap.** 2,434 orders (9.3% of total) are missing a value in `Waktu Pesanan Dibuat`, so they cannot be assigned to a month. Their cancellation rate (12.86%) is close to the platform-wide average (13.43%), suggesting this gap does not meaningfully bias the trend analysis. These rows were excluded from the month-by-month trend chart but are included in all other (non-time-based) queries.
 
 ---
 
@@ -193,9 +193,12 @@ ORDER BY order_month;
 | 2025-08 | 1,075 | 99 | 9.21 |
 | 2025-11 | 1,337 | 121 | 9.05 |
 
-*(Note: 2024-12 and 2025-07 are absent from the dataset — a data gap worth flagging rather than a zero-order month.)*
+*(Note: 2024-12 and 2025-07 are absent from the dataset, a data gap worth flagging rather than a zero-order month.)*
 
-**Insight:** Cancellation rate declined from **21.49% in December 2023 to 9.05% by November 2025**, nearly halving over the 24-month period, with the lowest rates concentrated in the final quarter of the dataset (Aug–Nov 2025, all under 10%). **So What:** whatever operational changes occurred over this period, platform policy, seller performance, or logistics improvements, appear to have meaningfully reduced cancellation. **Recommendation:** investigate what changed operationally between early 2024 and late 2025 (seller onboarding standards, payment options added, etc.) to formally document and replicate the practices driving this improvement.
+**Insight:**   
+Cancellation rate declined from **21.49% in December 2023 to 9.05% by November 2025**, nearly halving over the 24-month period, with the lowest rates concentrated in the final quarter of the dataset (Aug–Nov 2025, all under 10%). 
+**So What:**    
+whatever operational changes occurred over this period, platform policy, seller performance, or logistics improvements, appear to have meaningfully reduced cancellation. **Recommendation:** investigate what changed operationally between early 2024 and late 2025 (seller onboarding standards, payment options added, etc.) to formally document and replicate the practices driving this improvement.
 
 ---
 
@@ -227,7 +230,10 @@ ORDER BY cancellation_rate_pct DESC;
 | Mangkok Sambal / Saus | 4,389 | 459 | 10.46 |
 | Aksesoris Pintu | 3,385 | 308 | 9.10 |
 
-**Insight:** The platform's highest-volume categories (Celengan, Mangkok Sambal/Saus, Aksesoris Pintu) all perform **below the platform-wide cancellation rate (13.43%)**, at 9–11%. In contrast, mid-volume kitchen/tool categories, Rak/Rak Serbaguna (681 orders, 29.52%), Pengolah Bumbu/Sayur (177 orders, 32.20%), and Pisau/Alat Potong (189 orders, 25.40%), show cancellation rates more than double the platform average, despite large enough sample sizes to be meaningful rather than statistical noise. **So What:** the core best-selling categories are healthy; the problem is concentrated in a specific cluster of kitchen/organizational tool categories. **Recommendation:** investigate these categories specifically for common root causes, product description accuracy, sizing/expectation mismatches, or quality complaints, rather than applying a platform-wide fix.
+**Insight:** 
+The platform's highest-volume categories (Celengan, Mangkok Sambal/Saus, Aksesoris Pintu) all perform **below the platform-wide cancellation rate (13.43%)**, at 9–11%. In contrast, mid-volume kitchen/tool categories, Rak/Rak Serbaguna (681 orders, 29.52%), Pengolah Bumbu/Sayur (177 orders, 32.20%), and Pisau/Alat Potong (189 orders, 25.40%), show cancellation rates more than double the platform average, despite large enough sample sizes to be meaningful rather than statistical noise. 
+**So What:**   
+the core best-selling categories are healthy; the problem is concentrated in a specific cluster of kitchen/organizational tool categories. **Recommendation:** investigate these categories specifically for common root causes, product description accuracy, sizing/expectation mismatches, or quality complaints, rather than applying a platform-wide fix.
 
 ---
 
@@ -253,7 +259,10 @@ ORDER BY cancellation_rate_pct DESC;
 | SPayLater | 2,197 | 289 | 13.15 |
 | SeaBank Bayar Instan | 887 | 149 | 16.80 |
 
-**Insight:** Among the two largest digital payment methods with comparable volume, **Online Payment shows a 18.39% cancellation rate versus just 9.15% for Saldo ShopeePay**, nearly double, despite both being "already-paid" digital methods. **So What:** this gap points to friction in the online payment gateway itself (failed transactions, pending payment timeouts) rather than a buyer-intent issue, since ShopeePay balance payments are instant and rarely fail. **Recommendation:** audit the Online Payment gateway's failure/timeout rate as a likely direct contributor to unnecessary cancellations.
+**Insight:**   
+Among the two largest digital payment methods with comparable volume, **Online Payment shows a 18.39% cancellation rate versus just 9.15% for Saldo ShopeePay**, nearly double, despite both being "already-paid" digital methods. 
+**So What:**   
+this gap points to friction in the online payment gateway itself (failed transactions, pending payment timeouts) rather than a buyer-intent issue, since ShopeePay balance payments are instant and rarely fail. **Recommendation:** audit the Online Payment gateway's failure/timeout rate as a likely direct contributor to unnecessary cancellations.
 
 ---
 
@@ -290,7 +299,10 @@ ORDER BY total_revenue DESC;
 | KEPULAUAN RIAU | 102 | 25.49 |
 | KALIMANTAN TIMUR | 169 | 25.44 |
 
-**Insight:** Java-based provinces, which account for the large majority of both order volume and revenue, consistently show cancellation rates **below the platform average (11–12.4% vs. 13.43%)**. Outer-island provinces, while much lower in volume, show cancellation rates **2–2.5x higher** (25–32%). **So What:** this geographic pattern likely connects to the shipping-related cancellation reasons found in Q6 ("Pengiriman gagal", "Penjual gagal mengirimkan pesanan tepat waktu"), longer shipping distances to eastern Indonesia plausibly increase delivery failure and timeout-driven cancellations. **Recommendation:** review shipping SLA and courier options specifically for outer-island destinations rather than treating cancellation as a uniform national problem.
+**Insight:**   
+Java-based provinces, which account for the large majority of both order volume and revenue, consistently show cancellation rates **below the platform average (11–12.4% vs. 13.43%)**. Outer-island provinces, while much lower in volume, show cancellation rates **2–2.5x higher** (25–32%). 
+**So What:**  
+This geographic pattern likely connects to the shipping-related cancellation reasons found in Q6 ("Pengiriman gagal", "Penjual gagal mengirimkan pesanan tepat waktu"), longer shipping distances to eastern Indonesia plausibly increase delivery failure and timeout-driven cancellations. **Recommendation:** review shipping SLA and courier options specifically for outer-island destinations rather than treating cancellation as a uniform national problem.
 
 ---
 
@@ -318,7 +330,8 @@ ORDER BY discount_tier;
 | 0 - No Discount | 26,099 | 3,501 | 13.41 |
 | 1 - Low (Rp1-20K) | 159 | 24 | 15.09 |
 
-**Insight / Limitation:** 99.4% of all orders (26,099 of 26,258) carry no discount at all, with no orders falling into the medium or high discount tiers. This means the dataset does not contain enough variation in discounting to draw a reliable conclusion about its relationship with cancellation. **Rather than forcing an insight from this result, it is reported here as a data limitation**: discounting does not appear to be actively used as a sales lever on this store, which is itself worth noting for a business audience, but doesn't support a cause-effect claim about discount size and cancellation behavior.
+**Insight / Limitation:**  
+99.4% of all orders (26,099 of 26,258) carry no discount at all, with no orders falling into the medium or high discount tiers. This means the dataset does not contain enough variation in discounting to draw a reliable conclusion about its relationship with cancellation. **Rather than forcing an insight from this result, it is reported here as a data limitation**: discounting does not appear to be actively used as a sales lever on this store, which is itself worth noting for a business audience, but doesn't support a cause-effect claim about discount size and cancellation behavior.
 
 ---
 
@@ -353,7 +366,11 @@ ORDER BY total_cases DESC;
 | System auto-cancelled | 1,147 | 32.5% |
 | Seller-initiated | 15 | 0.4% |
 
-**Insight:** Two-thirds of all cancellations are buyer-initiated, and within that group, the dominant driver is not dissatisfaction with the product, it's the need to **modify an existing order**. Combining "Ubah Pesanan yang Ada," "Need to change delivery address," "Perlu mengubah alamat pengiriman," "Perlu mengubah pesanan," and "Perlu mengubah Voucher" accounts for **1,443 cancellations = 41% of all cancellations platform-wide**. Separately, 585 cancellations (16.6%) are system auto-cancellations for unpaid orders, pointing to checkout/payment-completion friction. **So What:** the largest share of cancellations isn't a product or pricing problem, it's the absence of a post-checkout order-editing capability. Buyers who simply need to fix an address or add an item are forced to cancel and re-purchase entirely. **Recommendation:** this is the strongest, most actionable finding in this analysis and directly informs the proposed solution in the BRD : a **post-checkout order editing feature** (address changes, item modification within a limited time window before fulfillment begins) could plausibly address a significant share of the 41% "order modification" cancellation cluster.
+**Insight:**  
+Two-thirds of all cancellations are buyer-initiated, and within that group, the dominant driver is not dissatisfaction with the product, it's the need to **modify an existing order**. Combining "Ubah Pesanan yang Ada," "Need to change delivery address," "Perlu mengubah alamat pengiriman," "Perlu mengubah pesanan," and "Perlu mengubah Voucher" accounts for **1,443 cancellations = 41% of all cancellations platform-wide**. Separately, 585 cancellations (16.6%) are system auto-cancellations for unpaid orders, pointing to checkout/payment-completion friction. 
+**So What:**   
+The largest share of cancellations isn't a product or pricing problem, it's the absence of a post-checkout order-editing capability. Buyers who simply need to fix an address or add an item are forced to cancel and re-purchase entirely. **Recommendation:**  
+This is the strongest, most actionable finding in this analysis and directly informs the proposed solution in the BRD : a **post-checkout order editing feature** (address changes, item modification within a limited time window before fulfillment begins) could plausibly address a significant share of the 41% "order modification" cancellation cluster.
 
 ---
 
